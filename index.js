@@ -1,7 +1,7 @@
 /////////////////// BOOKS //////////////
 const display_books = async () => {
-    let res = await fetch("http://127.0.0.1:5000/books/").then((response) => response.json())
-    booksList.innerHTML = res.map((i, ind) =>
+    let res = await axios.get("https://serverbackend.onrender.com/books/")
+    booksList.innerHTML = res.data.map((i, ind) =>
         `<div> <h3 style="color: red"> Book name: ${i['book_name']} </h3> 
     <img src='https://picsum.photos/20${ind}'> 
     <h3> id: ${i['id']} <br> author: ${i['author']} <br> publish date: ${i['publish_date']}<br> loan type: ${i['type_of_loan']} </h3>
@@ -10,13 +10,13 @@ const display_books = async () => {
 display_books()
 
 const delBook = async (id) => {
-    await fetch(`http://127.0.0.1:5000/books/books_del/${id}`, { method: 'GET' })
+    await fetch(`https://serverbackend.onrender.com/books/books_del/${id}`, { method: 'GET' })
     display_books()
 }
 
 const addBook = async () => {
     if (fieldsAreInvalid()) return;
-    await fetch('http://127.0.0.1:5000/books/add_book', {
+    await fetch('https://serverbackend.onrender.com/books/add_book', {
         method: 'POST',
         body: JSON.stringify({
             bookname: bookName.value,
